@@ -7,7 +7,7 @@ interface PrivateRouteProps {
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     const location = useLocation()
-    const [isToken, setIsToken] = useState<boolean>(false)
+    const [isToken] = useState<boolean>(false)
 
     if (!isToken) {
       

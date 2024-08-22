@@ -225,13 +225,6 @@ import ImageBox from '../ImageBox'
 import { TagSS } from '../../types'
 import {PencilOutline, TrashOutline } from "react-ionicons";
 
-interface EditModalProps {
-    isOpen: boolean
-    onClose: () => void
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
-    handleEditTask: (taskData: TaskT) => void
-    taskData: TaskT | null // Prop to receive task data for editing
-}
 
 interface TaskT {
     id: string
@@ -242,6 +235,13 @@ interface TaskT {
     image: string
     alt: string
     tags: TagSS[]
+}
+interface EditModalProps {
+    isOpen: boolean
+    onClose: () => void
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+    handleEditTask: (taskData: TaskT) => void
+    taskData: TaskT | null
 }
 
 const EditModal: React.FC<EditModalProps> = ({
@@ -270,7 +270,7 @@ const EditModal: React.FC<EditModalProps> = ({
 
     useEffect(() => {
         if (taskData) {
-            setTaskDataState(taskData) // Prepopulate form with task data
+            setTaskDataState(taskData)
         }
     }, [taskData])
 

@@ -2,30 +2,62 @@
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useState } from "react";
 import { Board } from "../../data/board";
-import { Columns } from "../../types";
+import { Columns, TaskT } from "../../types";
 import { onDragEnd } from "../../helpers/onDragEnd";
 import { AddOutline } from "react-ionicons";
 import AddModal from '../../components/Models/AddModel'
 import Task from "../../components/Task";
+import EditModal from "../../components/Models/EditModal";
 
 const Home = () => {
 	const [columns, setColumns] = useState<Columns>(Board);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [editModalOpen, setEditModalOpen] = useState(false);
 	const [selectedColumn, setSelectedColumn] = useState("");
+
+	const [taskToEdit, setTaskToEdit] = useState(null);
+	const [selectedTask, setSelectedTask] = useState<TaskT | null>(null);
 
 	const openModal = (columnId: any) => {
 		setSelectedColumn(columnId);
 		setModalOpen(true);
 	};
 
+	const openEditModal = (task:any, columnId:any) => {
+		setSelectedColumn(columnId);
+		setTaskToEdit(task);  // Set the task to be edited
+		setEditModalOpen(true);
+	};
+
 	const closeModal = () => {
 		setModalOpen(false);
+	};
+
+	const closeEditModal = () => {
+		setEditModalOpen(false);
+		setTaskToEdit(null);
 	};
 
 	const handleAddTask = (taskData: any) => {
 				const newBoard = { ...columns };
 				newBoard[selectedColumn].items.push(taskData);
 	};
+
+	const handleUpdateTask = (updatedTask: TaskT) => {
+		const newBoard = { ...columns };
+		const column = Object.values(newBoard).find(col =>
+		  col.items.find(task => task.id === updatedTask.id)
+		);
+	
+		if (column) {
+		  const taskIndex = column.items.findIndex(task => task.id === updatedTask.id);
+		  if (taskIndex !== -1) {
+			column.items[taskIndex] = updatedTask;  // Update the task
+			setColumns(newBoard);
+			closeModal();
+		  }
+		}
+	  };
 
 
 	const handleDeleteTask = (taskId: string, columnId: string) => {
@@ -34,6 +66,11 @@ const Home = () => {
 		  (task: any) => task.id !== taskId
 		);
 		setColumns(newColumns);
+	  };
+
+	  const handleEditTaskClick = (task: TaskT) => {
+		setSelectedTask(task);
+		setEditModalOpen(true);
 	  };
 
 	return (
@@ -71,6 +108,7 @@ const Home = () => {
 															task={task}
 						                                    // onDelete={(e)=>console.log(e)}
 															onDelete={(taskId) => handleDeleteTask(taskId, columnId)}
+															onEdit={handleEditTaskClick} 
 														/>
 													</>
 												)}
@@ -97,6 +135,14 @@ const Home = () => {
 				onClose={closeModal}
 				setOpen={setModalOpen}
 				handleAddTask={handleAddTask}
+			/>
+
+			<EditModal
+				isOpen={editModalOpen}
+				onClose={closeModal}
+				setOpen={setEditModalOpen}
+				handleEditTask={handleUpdateTask}
+				taskData={selectedTask}
 			/>
 		</>
 	);

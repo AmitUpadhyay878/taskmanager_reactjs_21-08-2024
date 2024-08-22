@@ -5,11 +5,12 @@ interface TaskProps{
   task:TaskT;
   provided:any;
   onDelete: (taskId: string) => void;
+  onEdit: (task: TaskT) => void; 
 }
 
-const Task = ({task,provided,onDelete}:TaskProps) => {
+const Task = ({task,provided,onDelete,onEdit}:TaskProps) => {
 
-  const {title, description, priority,deadline,image,alt,tags,id}=task;  
+  const { title, description, priority, deadline, image, alt, tags, id } = task;
 
   return (
     <div 
@@ -17,14 +18,15 @@ const Task = ({task,provided,onDelete}:TaskProps) => {
     {...provided.draggableProps}
     {...provided.dragHandleProps}
     className="w-full cursor-grab flex flex-col justify-between gap-3 bg-white  items-start shadow-sm rounded px-3 py-4"
-
+    onClick={() => onEdit(task)}
     >
-      <div className="justify-evenly">
-      <button
+      {/* <div className="justify-evenly"> */}
+      {/* <button
         className="top-2 right-2 text-gray-700 rounded-full p-1  transition-colors"
+        onClick={() => onEdit(task)}
       >
        Edit
-      </button>
+      </button> */}
       <button
         className="top-2 right-2 bg-amber-600 text-gray-700 rounded-[50%] p-1 hover:bg-amber-400 transition-colors"
         onClick={() => onDelete(id)} // Handle delete action
@@ -33,7 +35,7 @@ const Task = ({task,provided,onDelete}:TaskProps) => {
       </button>
 
     
-      </div>
+      {/* </div> */}
 
     {image && alt && (<img src={image} alt={alt} className="w-full h-[170px] rounded-lg" />)}
     <div className="flex items-center gap-2 max-w-full flex-wrap">

@@ -17,3 +17,9 @@ export type Column={
 export type Columns ={
     [key:string]:Column
 }
+
+export interface Tag {
+  title: string;
+  bg: string;   // Background color of the tag
+  text: string; // Text color of the tag
+}

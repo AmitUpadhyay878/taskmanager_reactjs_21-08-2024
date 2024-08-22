@@ -15,7 +15,7 @@ const Home = () => {
 	const [editModalOpen, setEditModalOpen] = useState(false);
 	const [selectedColumn, setSelectedColumn] = useState("");
 
-	const [taskToEdit, setTaskToEdit] = useState(null);
+	// const [taskToEdit, setTaskToEdit] = useState(null);
 	const [selectedTask, setSelectedTask] = useState<TaskT | null>(null);
 
 	const openModal = (columnId: any) => {
@@ -23,20 +23,20 @@ const Home = () => {
 		setModalOpen(true);
 	};
 
-	const openEditModal = (task:any, columnId:any) => {
-		setSelectedColumn(columnId);
-		setTaskToEdit(task);  // Set the task to be edited
-		setEditModalOpen(true);
-	};
+	// const openEditModal = (task:any, columnId:any) => {
+	// 	setSelectedColumn(columnId);
+	// 	setTaskToEdit(task);  // Set the task to be edited
+	// 	setEditModalOpen(true);
+	// };
 
 	const closeModal = () => {
 		setModalOpen(false);
 	};
 
-	const closeEditModal = () => {
-		setEditModalOpen(false);
-		setTaskToEdit(null);
-	};
+	// const closeEditModal = () => {
+	// 	setEditModalOpen(false);
+	// 	setTaskToEdit(null);
+	// };
 
 	const handleAddTask = (taskData: any) => {
 				const newBoard = { ...columns };

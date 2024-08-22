@@ -222,7 +222,7 @@ import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { getRandomColors } from '../../helpers/getRandomColors'
 import ImageBox from '../ImageBox'
-import { Tag } from '../../types'
+import { TagSS } from '../../types'
 import {PencilOutline, TrashOutline } from "react-ionicons";
 
 interface EditModalProps {
@@ -241,7 +241,7 @@ interface TaskT {
     deadline: number
     image: string
     alt: string
-    tags: Tag[]
+    tags: TagSS[]
 }
 
 const EditModal: React.FC<EditModalProps> = ({
@@ -290,7 +290,7 @@ const EditModal: React.FC<EditModalProps> = ({
                 setTaskDataState({ ...taskDataState, tags: updatedTags })
                 setEditingTagIndex(null)
             } else {
-                const newTag: Tag = { title: tagTitle.trim(), bg, text }
+                const newTag: TagSS = { title: tagTitle.trim(), bg, text }
                 setTaskDataState({
                     ...taskDataState,
                     tags: [...taskDataState.tags, newTag]

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { getRandomColors } from '../../helpers/getRandomColors';
 import ImageBox from '../ImageBox'
-import {Tag} from '../../types'
+import {TagSS} from '../../types'
 
 interface Tag {
   title: string;
@@ -26,7 +26,7 @@ const AddModel: React.FC<AddModelProps> = ({ isOpen, onClose, setOpen, handleAdd
     deadline: 0,
     image: "",
     alt: "",
-    tags: [] as Tag[]
+    tags: [] as TagSS[]
   };
 
   const [taskData, setTaskData] = useState(initialTaskData);

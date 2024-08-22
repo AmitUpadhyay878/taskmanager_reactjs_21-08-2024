@@ -18,7 +18,7 @@ export type Columns ={
     [key:string]:Column
 }
 
-export interface Tag {
+export interface TagSS {
   title: string;
   bg: string;   // Background color of the tag
   text: string; // Text color of the tag
